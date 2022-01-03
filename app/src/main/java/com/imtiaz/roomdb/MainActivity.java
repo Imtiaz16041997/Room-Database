@@ -3,6 +3,7 @@ package com.imtiaz.roomdb;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -65,20 +66,29 @@ public class MainActivity extends AppCompatActivity {
         fetchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db = AppDatabase.getInstance(MainActivity.this);
-                userDao = db.userDao();
-
-                List<User>  users = userDao.getAllUsers();
-                String str = "";
-
-                for(User user : users){
-                    str = str+"\t  "+user.getUid()+" "+user.getFirstName()+" "+user.getLastName()+"\n\n";
-
-                 dataholder.setText(str);
-                }
+                startActivity(new Intent(getApplicationContext(),FetchData.class));
 
             }
+
         });
+
+//        fetchBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                db = AppDatabase.getInstance(MainActivity.this);
+//                userDao = db.userDao();
+//
+//                List<User>  users = userDao.getAllUsers();
+//                String str = "";
+//
+//                for(User user : users){
+//                    str = str+"\t  "+user.getUid()+" "+user.getFirstName()+" "+user.getLastName()+"\n\n";
+//
+//                 dataholder.setText(str);
+//                }
+//
+//            }
+//        });
 
     }
 
