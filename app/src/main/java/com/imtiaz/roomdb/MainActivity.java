@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText first_name,last_name;
     Button insertBtn;
+    AppDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,21 +29,26 @@ public class MainActivity extends AppCompatActivity {
         insertBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new backgroundThread().start();
+                db = AppDatabase.getInstance(MainActivity.this);
+                UserDao userDao = db.userDao();
+                userDao.insertrecord(new User(1,first_name.getText().toString(),last_name.getText().toString()));
+                first_name.setText("");
+                last_name.setText("");
             }
         });
 
     }
 
-    public class backgroundThread extends Thread {
-        public void run() {
-            super.run();
-            AppDatabase db = AppDatabase.getInstance(MainActivity.this.getApplicationContext());
-            UserDao userDao = db.userDao();
-            userDao.insertrecord(new User(1,first_name.getText().toString(),last_name.getText().toString()));
-            first_name.setText("");
-            last_name.setText("");
-        }
-
-    }
+//    public class backgroundThread extends Thread {
+//        public void run() {
+//            super.run();
+//            AppDatabase db = AppDatabase.getInstance(MainActivity.this.getApplicationContext());
+//
+//            UserDao userDao = db.userDao();
+//            userDao.insertrecord(new User(1,first_name.getText().toString(),last_name.getText().toString()));
+//            first_name.setText("");
+//            last_name.setText("");
+//        }
+//
+//    }
 }
