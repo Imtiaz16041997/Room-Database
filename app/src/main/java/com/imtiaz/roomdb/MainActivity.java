@@ -28,18 +28,16 @@ public class MainActivity extends AppCompatActivity {
         insertBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new bgThread().start();
+                new backgroundThread().start();
             }
         });
 
     }
 
-    public class bgThread extends Thread {
+    public class backgroundThread extends Thread {
         public void run() {
             super.run();
-            AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                    AppDatabase.class, "room_db").build();
-
+            AppDatabase db = AppDatabase.getInstance(MainActivity.this.getApplicationContext());
             UserDao userDao = db.userDao();
             userDao.insertrecord(new User(1,first_name.getText().toString(),last_name.getText().toString()));
             first_name.setText("");
