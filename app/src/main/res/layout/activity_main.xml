@@ -10,6 +10,13 @@
 
 
     <EditText
+        android:id="@+id/first_id"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="First Id" />
+    <EditText
         android:id="@+id/first_name"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
