@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         first_id = findViewById(R.id.first_id);
         first_name = findViewById(R.id.first_name);
         last_name = findViewById(R.id.last_name);
-        dataholder = findViewById(R.id.dataholder);
+//        dataholder = findViewById(R.id.dataholder);
         insertBtn = findViewById(R.id.insertBtn);
         fetchBtn = findViewById(R.id.fetchBtn);
 
