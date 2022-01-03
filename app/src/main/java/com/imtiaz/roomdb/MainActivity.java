@@ -7,17 +7,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.imtiaz.roomdb.DAO.UserDao;
 import com.imtiaz.roomdb.Database.AppDatabase;
 import com.imtiaz.roomdb.EntityModelClass.User;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText first_name,last_name,first_id;
-    Button insertBtn;
+    TextView dataholder;
+    Button insertBtn,fetchBtn;
     AppDatabase db;
+    UserDao userDao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,13 +31,15 @@ public class MainActivity extends AppCompatActivity {
         first_id = findViewById(R.id.first_id);
         first_name = findViewById(R.id.first_name);
         last_name = findViewById(R.id.last_name);
+        dataholder = findViewById(R.id.dataholder);
         insertBtn = findViewById(R.id.insertBtn);
+        fetchBtn = findViewById(R.id.fetchBtn);
 
         insertBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 db = AppDatabase.getInstance(MainActivity.this);
-                UserDao userDao = db.userDao();
+                userDao = db.userDao();
 
                 Boolean check = userDao.is_exist(Integer.parseInt(first_id.getText().toString()));
                 if(check == false){
@@ -51,6 +58,24 @@ public class MainActivity extends AppCompatActivity {
 //                userDao.insertrecord(new User(1,first_name.getText().toString(), UserDao userDao = db.userDao();
 ////            userDao.insertrecord(new User(1,first_name.getText().toString(),last_name.getText().toString()));
 ////            first_name.setText("");
+
+            }
+        });
+
+        fetchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db = AppDatabase.getInstance(MainActivity.this);
+                userDao = db.userDao();
+
+                List<User>  users = userDao.getAllUsers();
+                String str = "";
+
+                for(User user : users){
+                    str = str+"\t  "+user.getUid()+" "+user.getFirstName()+" "+user.getLastName()+"\n\n";
+
+                 dataholder.setText(str);
+                }
 
             }
         });

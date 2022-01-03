@@ -6,6 +6,8 @@ import androidx.room.Query;
 
 import com.imtiaz.roomdb.EntityModelClass.User;
 
+import java.util.List;
+
 @Dao
 public interface UserDao {
     @Insert
@@ -13,6 +15,9 @@ public interface UserDao {
 
     @Query("SELECT EXISTS(SELECT * FROM User WHERE uid = :userId)")
     Boolean is_exist(int userId);
+
+    @Query("SELECT * FROM User")
+    List<User> getAllUsers();
 
 
 }
