@@ -9,7 +9,7 @@ import com.imtiaz.roomdb.EntityModelClass.User;
 import java.util.List;
 
 @Dao
-public interface UserDao {
+public interface  UserDao {
     @Insert
     void insertrecord(User users);
 
@@ -21,6 +21,10 @@ public interface UserDao {
 
     @Query("DELETE FROM User WHERE uid = :id")
     void deleteById(int id);
+
+    @Query("UPDATE User SET first_name = :fname, last_name = :lname WHERE uid = :id")
+    void updateById(int id, String fname, String lname);
+
 
 
 }

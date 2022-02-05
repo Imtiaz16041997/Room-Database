@@ -1,6 +1,7 @@
 package com.imtiaz.roomdb;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,17 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder>{
                 notifyDataSetChanged();
             }
         });
+
+        holder.update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(new Intent(holder.update.getContext(),updateData.class));
+                intent.putExtra("uid", String.valueOf(users.get(position).getUid()));
+                intent.putExtra("ufname",users.get(position).getFirstName());
+                intent.putExtra("ulname",users.get(position).getLastName());
+                holder.update.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -60,13 +72,14 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder>{
 
     public class myViewHolder extends RecyclerView.ViewHolder{
         TextView fName,lName,recId;
-        ImageView delete;
+        ImageView delete,update;
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
             recId = itemView.findViewById(R.id.recId);
             fName = itemView.findViewById(R.id.fName);
             lName = itemView.findViewById(R.id.lName);
             delete = itemView.findViewById(R.id.dlt);
+            update = itemView.findViewById(R.id.update);
         }
     }
 }
